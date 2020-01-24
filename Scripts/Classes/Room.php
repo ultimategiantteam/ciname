@@ -3,8 +3,8 @@ require_once 'Cinema.php';
 
 class Room extends Cinema
 {
-    private string $RoomName;
-    private array $roomSeatMap = [];
+    private string $RoomName = '';
+    public array $roomSeatMap = [];
     private array $displayTimes = [];
 
     public function setRoomName(string $RoomName): void
@@ -16,7 +16,7 @@ class Room extends Cinema
     {
         for ($x = 0;$x < $rows; $x++){
             for ($y = 0;$y < $columns; $y++){
-                $this->roomSeatMap[$x[$y]] = 'O';
+                $this->roomSeatMap[$x] .= 'O';
             }
         }
     }
