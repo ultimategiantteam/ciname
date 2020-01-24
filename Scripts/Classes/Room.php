@@ -5,7 +5,6 @@ class Room extends Cinema
 {
     private $rows = 7;
     private $columns = 8;
-
     private $RoomName = '';
     private $roomSeatMap = [];
     private $displayTimes = [];
@@ -33,6 +32,9 @@ class Room extends Cinema
         }
     }
 
+    /**
+     * @return string
+     */
     public function getSeatMapAsString():string
     {
         $seatMap = ' ';
@@ -50,7 +52,6 @@ class Room extends Cinema
         }
         return $seatMap;
     }
-
 
     public function getFreeSeats(array $room): int
     {
@@ -77,13 +78,22 @@ class Room extends Cinema
 
     }
 
-    public function removeMovieFromDisplayTimePla(float $time): void
+    public function removeMovieFromDisplayTimePlan(float $time): void
     {
 
     }
 
     public function toArray(): array
     {
+        $room = [
+            'rows' => $this->rows,
+            'columns' => $this->columns,
+            'roomName' => $this->RoomName,
+            'roomSeatMap' => $this->roomSeatMap,
+            'displayTimes' => $this->displayTimes
+        ];
+
+        return $room;
 
     }
 
