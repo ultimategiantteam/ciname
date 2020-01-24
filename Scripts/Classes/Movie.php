@@ -7,8 +7,10 @@ class Movie
     private $displayTimes = [];
     private $displayRooms = [];
 
-    public function createMovie(): Movie
+    public static function createMovie(string $moviename): Movie
     {
+        $movie = new static();
+        $movie->setMovieName($moviename);
     }
 
     public function addDisplayTime(): void
@@ -27,8 +29,9 @@ class Movie
     {
     }
 
-    public function setMovieName(): void
+    public function setMovieName(string $moviename): void
     {
+        $this->movieName = $moviename;
     }
 
     public function toArray(): array
