@@ -3,37 +3,39 @@
 
 class Cinema
 {
-    private $cinema = [];
-    private $filename = '';
-    private $timePlan = [];
+    private $cinema = [
+        'rooms' => [],
+        'movies' => [],
+        'timePlan' => []
+    ];
 
-    public function addRoom(): Room
+    public function addRoom():void
     {
-        $this->cinema += Room::createRoomFromConsole();
+        $this->cinema['rooms'][] = Room::createRoomFromConsole();
     }
 
     public function setTimePlan(): void
     {
+
     }
 
-    public function setFilename(string $filename): void
+    public function saveData(string $filename): void
     {
-        $this->filename = $filename;
+        file_put_contents($filename,json_encode($this->cinema));
     }
 
-    public function saveData(): void
+    public function loadData(string $filename): array
     {
-        file_put_contents($this->filename,json_encode($this->cinema));
+        return json_decode(file_get_contents($filename));
     }
 
-    public function loadData(): array
+    public static function createFromArray(array $data): Cinema
     {
-        return json_decode(file_get_contents($this->filename));
-    }
+        $cinema = new Cinema();
+        foreach ($data['room'] as $room) {
 
-    public function createFromArray(): Cinema
-    {
-        return null;
+        }
+        return $cinema;
     }
 
 }

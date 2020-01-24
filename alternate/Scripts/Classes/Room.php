@@ -3,9 +3,9 @@ require_once 'Cinema.php';
 
 class Room extends Cinema
 {
-    private $rows = 0;
-    private $columns = 0;
-    private $roomName = '';
+    private $rows = 7;
+    private $columns = 8;
+    private $RoomName = '';
     private $roomSeatMap = [];
     private $displayTimes = [];
 
@@ -14,7 +14,7 @@ class Room extends Cinema
      */
     public function setRoomName(string $RoomName): void
     {
-        $this->roomName = $RoomName;
+        $this->RoomName = $RoomName;
     }
 
     /**
@@ -35,17 +35,17 @@ class Room extends Cinema
     /**
      * @return string
      */
-    public function getSeatMapAsString(): string
+    public function getSeatMapAsString():string
     {
         $seatMap = ' ';
-        $alphas = range('A', 'Z');
-        for ($i = 0; $i < $this->columns; $i++) {
+        $alphas = range('A','Z');
+        for($i = 0; $i < $this->columns; $i++){
             $seatMap .= ' ' . $i;
         }
         $seatMap .= PHP_EOL;
-        foreach ($this->roomSeatMap as $id => $value) {
-            $seatMap .= $id . ' ';
-            for ($i = 0; $i < $this->columns; $i++) {
+        foreach ($this->roomSeatMap as $id => $value){
+            $seatMap .= $alphas[$id] . ' ';
+            for ($i = 0; $i < $this->columns; $i++){
                 $seatMap .= $value[$i] . ' ';
             }
             $seatMap .= PHP_EOL;
@@ -113,6 +113,9 @@ class Room extends Cinema
             'roomSeatMap' => $this->roomSeatMap,
             'displayTimes' => $this->displayTimes
         ];
+
+        return $room;
+
     }
 
     /**
