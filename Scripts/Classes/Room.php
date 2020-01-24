@@ -60,11 +60,11 @@ class Room extends Cinema
     {
 
     }
-    public function createRoomFromArray():Room
+    public static function createRoomFromArray():Room
     {
 
     }
-    public function createRoomFromConsole():Room
+    public static function createRoomFromConsole():Room
     {
 
     }
