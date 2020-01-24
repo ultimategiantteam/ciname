@@ -3,9 +3,9 @@
 
 class Cinema
 {
-    private $cinema = [];
-    private $filename = '';
-    private $timePlan = [];
+    private array $cinema = [];
+    private string $filename = '';
+    private array $timePlan = [];
 
     public function addRoom(): Room
     {
@@ -27,7 +27,7 @@ class Cinema
 
     public function saveData(): void
     {
-        file_put_contents($this->filename,$this->encodeData());
+        file_put_contents($this->filename,$this->encodeData($this->cinema));
     }
 
     public function loadData(): array
@@ -40,9 +40,9 @@ class Cinema
         return json_decode($json, JSON_OBJECT_AS_ARRAY);
     }
 
-    public function encodeData(): string
+    public function encodeData($data): string
     {
-
+        return json_encode($data);
     }
 
     public function createFromArray(): Cinema
