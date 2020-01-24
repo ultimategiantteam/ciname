@@ -14,7 +14,11 @@ class Room extends Cinema
 
     public function setRoomSeatMap(int $rows, int $columns):void
     {
-
+        for ($x = 0;$x < $rows; $x++){
+            for ($y = 0;$y < $columns; $y++){
+                $this->roomSeatMap[$x[$y]] = 'O';
+            }
+        }
     }
 
     public function getFreeSeats(array $room):int
