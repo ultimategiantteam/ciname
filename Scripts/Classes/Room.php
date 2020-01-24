@@ -44,7 +44,7 @@ class Room extends Cinema
         }
         $seatMap .= PHP_EOL;
         foreach ($this->roomSeatMap as $id => $value) {
-            $seatMap .= $alphas[$id] . ' ';
+            $seatMap .= $id . ' ';
             for ($i = 0; $i < $this->columns; $i++) {
                 $seatMap .= $value[$i] . ' ';
             }
@@ -58,16 +58,39 @@ class Room extends Cinema
 
     }
 
+    public function seatFree(int $row, int $column): bool
+    {
+        $seat = substr($this->roomSeatMap[$row], $column, 1);
+        if ($seat == 'O') {
+            return true;
+        }
+        return false;
+    }
+
     public function addReservation(int $row, int $column): void
     {
+        if ($this->seatFree($row, $column)) {
+            $part1 = substr($this->roomSeatMap[$row],0,$column);
+            $part2 = substr($this->roomSeatMap[$row],$column+1,strlen($this->roomSeatMap[$row]));
+
+
+            $newrow = $part1 . 'X' . $part2;
+
+            $this->roomSeatMap[$row] = $newrow;
+        }
+
 
     }
 
     public function getSeatMap(array $room): array
     {
-
+        return $this->roomSeatMap;
     }
 
+    /**
+     * @param string $movieName
+     * @param string $movieTime
+     */
     public function addMovie(string $movieName, string $movieTime): void
     {
         $this->displayTimes[$movieTime] = $movieName;
