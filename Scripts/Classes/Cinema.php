@@ -3,9 +3,9 @@
 
 class Cinema
 {
-    private array $cinema = [];
-    private string $filename = '';
-    private array $timePlan = [];
+    private $cinema = [];
+    private $filename = '';
+    private $timePlan = [];
 
     public function addRoom(): Room
     {
@@ -14,7 +14,6 @@ class Cinema
 
     public function setTimePlan(): void
     {
-        return null;
     }
 
     /**
