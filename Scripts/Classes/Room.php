@@ -3,9 +3,9 @@ require_once 'Cinema.php';
 
 class Room extends Cinema
 {
-    private $rows = 7;
-    private $columns = 8;
-    private $RoomName = '';
+    private $rows = 0;
+    private $columns = 0;
+    private $roomName = '';
     private $roomSeatMap = [];
     private $displayTimes = [];
 
@@ -14,7 +14,7 @@ class Room extends Cinema
      */
     public function setRoomName(string $RoomName): void
     {
-        $this->RoomName = $RoomName;
+        $this->roomName = $RoomName;
     }
 
     /**
@@ -35,17 +35,17 @@ class Room extends Cinema
     /**
      * @return string
      */
-    public function getSeatMapAsString():string
+    public function getSeatMapAsString(): string
     {
         $seatMap = ' ';
-        $alphas = range('A','Z');
-        for($i = 0; $i < $this->columns; $i++){
+        $alphas = range('A', 'Z');
+        for ($i = 0; $i < $this->columns; $i++) {
             $seatMap .= ' ' . $i;
         }
         $seatMap .= PHP_EOL;
-        foreach ($this->roomSeatMap as $id => $value){
+        foreach ($this->roomSeatMap as $id => $value) {
             $seatMap .= $alphas[$id] . ' ';
-            for ($i = 0; $i < $this->columns; $i++){
+            for ($i = 0; $i < $this->columns; $i++) {
                 $seatMap .= $value[$i] . ' ';
             }
             $seatMap .= PHP_EOL;
@@ -68,14 +68,9 @@ class Room extends Cinema
 
     }
 
-    public function setMovie(array $movie): void
+    public function addMovie(string $movieName, string $movieTime): void
     {
-
-    }
-
-    public function setMoviePlan(): void
-    {
-
+        $this->displayTimes[$movieTime] = $movieName;
     }
 
     public function removeMovieFromDisplayTimePlan(float $time): void
@@ -83,31 +78,44 @@ class Room extends Cinema
 
     }
 
+    /**
+     * @return array
+     */
     public function toArray(): array
     {
-        $room = [
+        return [
             'rows' => $this->rows,
             'columns' => $this->columns,
-            'roomName' => $this->RoomName,
+            'roomName' => $this->roomName,
             'roomSeatMap' => $this->roomSeatMap,
             'displayTimes' => $this->displayTimes
         ];
-
-        return $room;
-
     }
 
+    /**
+     * @return string
+     */
     public function toString(): string
     {
-
+        $room = '';
+        $room .= $this->roomName . PHP_EOL;
+        foreach ($this->displayTimes as $time => $movieName) {
+            $room .= $movieName . ' am ' . $time . PHP_EOL;
+        }
+        return $room;
     }
-    public static function createRoomFromArray():Room
+
+    public static function createRoomFromArray(array $data): Room
     {
 
     }
-    public static function createRoomFromConsole():Room
-    {
 
+    public static function createRoomFromConsole(string $roomName, int $rows, int $columns): Room
+    {
+        $room = new Room();
+        $room->roomName = $roomName;
+        $room->setRoomSeatMap($rows, $columns);
+        return $room;
     }
 
 }

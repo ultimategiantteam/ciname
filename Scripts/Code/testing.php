@@ -3,6 +3,6 @@
 require_once "../Classes/Room.php";
 
 
-$room = new Room();
-$room->setRoomSeatMap(4,5);
-var_dump($room->toArray());
+$room = Room::createRoomFromConsole('Hugo',5,7);
+$room->addMovie('STAR WARS','16:30');
+print $room->toString();
