@@ -13,7 +13,8 @@ class App
         '=====================',
         ' Add Room',
         ' Add Movie',
-        ' Add Presentation'
+        ' Add Presentation',
+        ' Add Reservation'
     ];
 
 
@@ -33,15 +34,12 @@ class App
             print $item . PHP_EOL;
         }
         print $this->menu[0] . PHP_EOL;
-
         if (file_exists($filename)) {
             $cinema = Cinema::createFromFile($filename);
         } else {
             $cinema = Cinema::createNew();
             $cinema->save($filename);
         }
-
-
         do {
             $choice = $this->rl('Ihre Wahl: ');
             switch ($choice) {
@@ -74,9 +72,24 @@ class App
                     $cinema->addPresentation($movieID,$data,$roomname,$time);
                     $cinema->save($filename);
                     break;
+                case 4:
+                    $name = $this->rl('Vorname+Nachname: ');
+
+                    print $cinema->formatPresentations();
+                    $id = $this->rl('Vorstellung: ');
+                    $data = $cinema->toArray();
+                    $movieName = $data['presentations'][$id]['movie']['name'];
+                    $time = $data['presentations'][$id]['time'];
+                    $roomName = $data['presentations'][$id]['room']['name'];
+                    $seatnumber = $this->rl('Number of Seats: ');
+                    $seats = [];
+                    for($i = 0; $i < $seatnumber; $i++){
+                        $seats[] = $this->rl("Seats number $i:");
+                    }
+                    $cinema->addReservation($name,$roomName,$seats,$movieName,$time);
+                    $cinema->save($filename);
+                    break;
             }
-
-
         } while ($choice != 0);
 
 

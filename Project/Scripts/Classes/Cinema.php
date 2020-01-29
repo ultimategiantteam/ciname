@@ -143,13 +143,12 @@ class Cinema
             if ($presentation['movie']['name'] == $moviename) {
                 if ($presentation['time'] == $time) {
                     foreach ($seats as $seat) {
-                        $this->presentations[$id]['room']['seats'][$seat+1]['reserved'] = true;
-                        $this->presentations[$id]['room']['seats'][$seat+1]['reservation'] = ['customer' => $name];
+                        $this->presentations[$id]['room']['seats'][$seat - 1]['reserved'] = true;
+                        $this->presentations[$id]['room']['seats'][$seat - 1]['reservation'] = ['customer' => $name];
                     }
                 } else {
                     continue;
                 }
-
             } else {
                 continue;
             }
