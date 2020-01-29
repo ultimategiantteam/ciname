@@ -1,0 +1,48 @@
+{
+  "rooms": {
+    "Genkidama": {
+      "cols": 2,
+      "rows": 3,
+      "name": "Genkidama",
+      "seats": [
+        {
+          "reserved": false,
+          "id": 1
+        },
+        {
+          "reserved": false,
+          "id": 2
+        },
+        {
+          "reserved": false,
+          "id": 3
+        },
+        {
+          "reserved": false,
+          "id": 4
+        },
+        {
+          "reserved": false,
+          "id": 5
+        },
+        {
+          "reserved": false,
+          "id": 6
+        }
+      ]
+    }
+  },
+  "presentations": [
+    "awwdawda"
+  ],
+  "movies": {
+    "1": {
+      "name": "Nino",
+      "fsk": 3
+    },
+    "2": {
+      "name": "Phil",
+      "fsk": 7
+    }
+  }
+}

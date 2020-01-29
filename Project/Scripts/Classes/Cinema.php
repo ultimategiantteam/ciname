@@ -3,9 +3,9 @@ require_once "Movie.php";
 
 class Cinema
 {
-    private $rooms = [];
-    private $presentations = ['awwdawda'];
-    private $movies = [];
+    private array $rooms = [];
+    private array $presentations = ['awwdawda'];
+    private array $movies = [];
     const props = ['rooms', 'presentations', 'movies'];
 
 
