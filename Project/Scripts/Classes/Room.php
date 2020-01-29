@@ -12,10 +12,18 @@ class Room
     {
         $this->rows = $rows;
         $this->cols = $cols;
+        $iterate = 0;
         for ($x = 0; $x < $rows; $x++) {
             for ($y = 0; $y < $cols; $y++) {
-                $this->seats .= Seat::createSeat();
+                $iterate++;
+                $seat = new Seat();
+                $this->seats[] = $seat->toArray($iterate);
             }
         }
+    }
+
+    public function getSeats(): array
+    {
+        return $this->seats;
     }
 }
