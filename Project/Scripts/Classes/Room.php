@@ -1,6 +1,7 @@
 <?php
 
 require_once "Seat.php";
+
 class Room
 {
     private string $name = '';
@@ -26,4 +27,18 @@ class Room
     {
         return $this->seats;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'seats' => $this->seats
+        ];
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
 }
