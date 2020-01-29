@@ -1,6 +1,6 @@
 <?php
 
-
+require_once "Seat.php";
 class Room
 {
     private string $name = '';
@@ -14,7 +14,7 @@ class Room
         $this->cols = $cols;
         for ($x = 0; $x < $rows; $x++) {
             for ($y = 0; $y < $cols; $y++) {
-                $this->seats .= ;
+                $this->seats .= Seat::createSeat();
             }
         }
     }

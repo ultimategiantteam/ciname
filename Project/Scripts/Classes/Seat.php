@@ -4,15 +4,17 @@
 class Seat
 {
     private bool $reserved = false;
-    private int $seatID = 0;
+    private int $seatID;
 
-    public function changeReservation(): void
+    public static function createSeat(): Seat
     {
-        $this->reserved = !$this->reserved;
+        return new Seat();
     }
 
-    public function setSeatID(int $id): void
+
+
+    public function setSeatID():void
     {
-        $this->seatID = $id;
+
     }
 }
