@@ -113,9 +113,6 @@ class Room extends Cinema
             'roomSeatMap' => $this->roomSeatMap,
             'displayTimes' => $this->displayTimes
         ];
-
-        return $room;
-
     }
 
     /**
