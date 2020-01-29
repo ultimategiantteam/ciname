@@ -41,4 +41,15 @@ class Room
         $this->name = $name;
     }
 
+    public static function createFromArray(array $data, $id): Room
+    {
+        $roomArray = $data['rooms'][$id];
+        $room = new Room();
+        $room->setName($id);
+        $room->createSeatMap($roomArray['rows'],$roomArray['cols']);
+
+        return $room;
+    }
+
+
 }

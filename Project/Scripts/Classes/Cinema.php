@@ -1,11 +1,13 @@
 <?php
-
+require_once "Movie.php";
 
 class Cinema
 {
     private $rooms = [];
     private $presentations = ['awwdawda'];
-    const props = ['rooms', 'presentations'];
+    private $movies = [];
+    const props = ['rooms', 'presentations', 'movies'];
+
 
     /**
      * @param string $filename
@@ -34,6 +36,7 @@ class Cinema
         $cinema = new Cinema();
         $cinema->rooms = $data['rooms'];
         $cinema->presentations = $data['presentations'];
+        $cinema->movies = $data['movies'];
         return $cinema;
     }
 
@@ -45,5 +48,27 @@ class Cinema
         $this->rooms[$name] = $room->toArray();
     }
 
+    public function removeRoom(string $name): void
+    {
+        unset($this->rooms[$name]);
+    }
+
+    public function addMovie(string $name, int $fsk): void
+    {
+        $movie = Movie::createMovie($name, $fsk);
+        $this->movies[sizeof($this->movies) + 1] = $movie->toArray();
+    }
+
+    public function toArray(): array
+    {
+        $i = 0;
+        $rawData = [];
+        foreach ($this as $property) {
+            $rawData[self::props[$i]] =
+                $property;
+            $i++;
+        }
+        return $rawData;
+    }
 
 }
