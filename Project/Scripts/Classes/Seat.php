@@ -17,11 +17,11 @@ class Seat
         $this->reserved = !$this->reserved;
     }
 
-    public function toArray(int $id):array
+    public function toArray(int $seatId):array
     {
         return [
             'reserved' => $this->reserved,
-            'id' => $this->setGetId($id)
+            'id' => $this->setGetId($seatId)
         ];
     }
 }
