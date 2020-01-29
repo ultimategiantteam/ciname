@@ -12,11 +12,6 @@ class Seat
         return $this->Id;
     }
 
-    public function changeReserved():void
-    {
-        $this->reserved = !$this->reserved;
-    }
-
     public function toArray(int $seatId):array
     {
         return [

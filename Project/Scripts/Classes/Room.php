@@ -32,7 +32,9 @@ class Room
     {
         return [
             'name' => $this->name,
-            'seats' => $this->seats
+            'seats' => $this->seats,
+            'rows' => $this->rows,
+            'cols' => $this->cols
         ];
     }
 

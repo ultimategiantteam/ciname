@@ -1,9 +1,15 @@
 <?php
-require_once "../Classes/Room.php";
-require_once "../Classes/Cinema.php";
-require_once "../Classes/Presentation.php";
+require_once "../Classes/App.php";
 
-$cinema = new Cinema();
 $cinema = Cinema::createFromFile('file.json');
-$cinema->addPresentation(1,$cinema->toArray(),'Genkidama','123123123');
+$cinema->addReservation('Peter Ueli Stein','Nino',[1],'Phil','16:30');
 $cinema->save('file.json');
+
+
+
+
+
+/*
+$app = new App();
+$app->run();
+*/

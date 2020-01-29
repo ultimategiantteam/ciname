@@ -8,7 +8,6 @@ class Cinema
     private array $movies = [];
     const props = ['rooms', 'presentations', 'movies'];
 
-
     /**
      * @param string $filename
      */
@@ -53,6 +52,10 @@ class Cinema
         unset($this->rooms[$name]);
     }
 
+    /**
+     * @param string $name
+     * @param int $fsk
+     */
     public function addMovie(string $name, int $fsk): void
     {
         $movie = Movie::createMovie($name, $fsk);
@@ -71,11 +74,88 @@ class Cinema
         return $rawData;
     }
 
-    public function addPresentation(int $id, array $data, string $roomname, string $time):void
+    /**
+     * @param int $id
+     * @param array $data
+     * @param string $roomname
+     * @param string $time
+     */
+    public function addPresentation(int $id, array $data, string $roomname, string $time): void
     {
         $pre = new Presentation();
-        $pre->setAttributes($id,$data,$roomname,$time);
+        $pre->setAttributes($id, $data, $roomname, $time);
         $this->presentations[] = $pre->toArray();
+    }
+
+    public static function createNew(): Cinema
+    {
+        $cinema = new Cinema();
+        $cinema->rooms = [];
+        $cinema->presentations = [];
+        $cinema->movies = [];
+        return $cinema;
+    }
+
+    public function formatRooms()
+    {
+        $string = '';
+        $data = $this->toArray();
+        foreach ($data['rooms'] as $room) {
+            $string .= 'Name: ' . $room['name'] . PHP_EOL;
+        }
+        return $string;
+    }
+
+    public function formatPresentations()
+    {
+        $string = '';
+        $id = 0;
+        $data = $this->toArray();
+        foreach ($data['presentations'] as $presentation) {
+            $string .= $id;
+            $string .= "  Movie: " . $presentation['movie']['name'] . PHP_EOL;
+            $string .= "\tRoom: " . $presentation['room']['name'] . PHP_EOL;
+            $string .= "\tTime: " . $presentation['time'] . PHP_EOL;
+            $id++;
+        }
+
+        return $string;
+    }
+
+    public function formatMovies()
+    {
+        $string = '';
+        $id = 0;
+        $data = $this->toArray();
+        foreach ($data['movies'] as $movie) {
+            $string .= $id;
+            $string .= "  Name: " . $movie['name'] . PHP_EOL . "\tFSK: " . $movie['fsk'] . PHP_EOL;
+            $id++;
+        }
+        return $string;
+    }
+
+    public function addReservation(string $name, string $roomName, array $seats, string $moviename, string $time): void
+    {
+        $reservation = Reservation::createReservation($name, $seats, $moviename, $time, $roomName);
+        $reserv = $reservation->toArray();
+        foreach ($this->presentations as $id => $presentation) {
+            if ($presentation['movie']['name'] == $moviename) {
+                if ($presentation['time'] == $time) {
+                    foreach ($seats as $seat) {
+                        $this->presentations[$id]['room']['seats'][$seat+1]['reserved'] = true;
+                        $this->presentations[$id]['room']['seats'][$seat+1]['reservation'] = ['customer' => $name];
+                    }
+                } else {
+                    continue;
+                }
+
+            } else {
+                continue;
+            }
+        }
+
+
     }
 
 
