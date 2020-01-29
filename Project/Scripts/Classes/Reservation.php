@@ -20,7 +20,9 @@ class Reservation
         $this->roomName = $data['room']['name'];
         $this->movie = $data['movie']['name'];
         $this->time = $data['time'];
-        $seats =
+        foreach ($seats as $seat){
+            $this->seats[] = $seat;
+        }
     }
 
 }
