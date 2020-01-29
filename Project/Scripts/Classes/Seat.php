@@ -4,17 +4,24 @@
 class Seat
 {
     private bool $reserved = false;
-    private int $seatID;
+    private int $Id;
 
-    public static function createSeat(): Seat
+    private function setGetId(int $Id):int
     {
-        return new Seat();
+        $this->Id = $Id;
+        return $this->Id;
     }
 
-
-
-    public function setSeatID():void
+    public function changeReserved():void
     {
+        $this->reserved = !$this->reserved;
+    }
 
+    public function toArray(int $id):array
+    {
+        return [
+            'reserved' => $this->reserved,
+            'id' => $this->setGetId($id)
+        ];
     }
 }
