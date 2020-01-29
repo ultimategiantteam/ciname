@@ -74,7 +74,7 @@ class Cinema
     public function addPresentation(int $id, array $data, string $roomname, string $time):void
     {
         $pre = new Presentation();
-        $pre->setMovie($id,$data,$roomname,$time);
+        $pre->setAttributes($id,$data,$roomname,$time);
         $this->presentations[] = $pre->toArray();
     }
 

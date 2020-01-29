@@ -33,7 +33,78 @@
     }
   },
   "presentations": [
-    "awwdawda"
+    {
+      "movie": {
+        "name": "Nino",
+        "fsk": 3
+      },
+      "room": {
+        "name": "Genkidama",
+        "seats": [
+          {
+            "reserved": false,
+            "id": 1
+          },
+          {
+            "reserved": false,
+            "id": 2
+          },
+          {
+            "reserved": false,
+            "id": 3
+          },
+          {
+            "reserved": false,
+            "id": 4
+          },
+          {
+            "reserved": false,
+            "id": 5
+          },
+          {
+            "reserved": false,
+            "id": 6
+          }
+        ]
+      },
+      "time": "123123123"
+    },
+    {
+      "movie": {
+        "name": "Nino",
+        "fsk": 3
+      },
+      "room": {
+        "name": "Genkidama",
+        "seats": [
+          {
+            "reserved": false,
+            "id": 1
+          },
+          {
+            "reserved": false,
+            "id": 2
+          },
+          {
+            "reserved": false,
+            "id": 3
+          },
+          {
+            "reserved": false,
+            "id": 4
+          },
+          {
+            "reserved": false,
+            "id": 5
+          },
+          {
+            "reserved": false,
+            "id": 6
+          }
+        ]
+      },
+      "time": "123123123"
+    }
   ],
   "movies": {
     "1": {

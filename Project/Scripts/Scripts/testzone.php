@@ -7,4 +7,3 @@ $cinema = new Cinema();
 $cinema = Cinema::createFromFile('file.json');
 $cinema->addPresentation(1,$cinema->toArray(),'Genkidama','123123123');
 $cinema->save('file.json');
-
