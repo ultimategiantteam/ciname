@@ -11,9 +11,17 @@ class Presentation
     {
         $movie = Movie::createFromArray($data['movies'][$id]);
         $this->movie = $movie;
-        $this->room = Room::createFromArray($data,$roomname);
+        $this->room = Room::createFromArray($data, $roomname);
         $this->time = $time;
     }
 
+    public function toArray(): array
+    {
+        return [
+            'movie' => $this->movie->toArray(),
+            'room' => $this->room->toArray(),
+            'time' => $this->time
+        ];
+    }
 
 }
