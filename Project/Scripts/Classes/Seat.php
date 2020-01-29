@@ -1,5 +1,6 @@
 <?php
 
+
 class Seat
 {
     private bool $reserved = false;
@@ -10,9 +11,6 @@ class Seat
         $this->reserved = !$this->reserved;
     }
 
-    /**
-     * @param int $id
-     */
     public function setSeatID(int $id): void
     {
         $this->seatID = $id;
