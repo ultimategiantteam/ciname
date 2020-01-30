@@ -4,7 +4,7 @@ require_once "Movie.php";
 class Cinema
 {
     private array $rooms = [];
-    private array $presentations = ['awwdawda'];
+    private array $presentations = [];
     private array $movies = [];
     const props = ['rooms', 'presentations', 'movies'];
 
@@ -39,6 +39,11 @@ class Cinema
         return $cinema;
     }
 
+    /**
+     * @param string $name
+     * @param int $rows
+     * @param int $columns
+     */
     public function addRoom(string $name, int $rows, int $columns): void
     {
         $room = new Room();
@@ -47,6 +52,9 @@ class Cinema
         $this->rooms[$name] = $room->toArray();
     }
 
+    /**
+     * @param string $name
+     */
     public function removeRoom(string $name): void
     {
         unset($this->rooms[$name]);
@@ -62,6 +70,10 @@ class Cinema
         $this->movies[sizeof($this->movies) + 1] = $movie->toArray();
     }
 
+    /**
+     * @param int $id
+     * @param string $filename
+     */
     public function removeMovie(int $id, string $filename): void
     {
         unset($this->movies[$id + 1]);
@@ -70,6 +82,9 @@ class Cinema
 
     }
 
+    /**
+     * @return array
+     */
     public function toArray(): array
     {
         $i = 0;
@@ -95,6 +110,9 @@ class Cinema
         $this->presentations[] = $pre->toArray();
     }
 
+    /**
+     * @return Cinema
+     */
     public static function createNew(): Cinema
     {
         $cinema = new Cinema();
@@ -104,6 +122,9 @@ class Cinema
         return $cinema;
     }
 
+    /**
+     * @return string
+     */
     public function formatRooms()
     {
         $string = '';
@@ -114,6 +135,9 @@ class Cinema
         return $string;
     }
 
+    /**
+     * @return string
+     */
     public function formatPresentations()
     {
         $string = '';
@@ -130,6 +154,9 @@ class Cinema
         return $string;
     }
 
+    /**
+     * @return string
+     */
     public function formatMovies()
     {
         $string = '';
@@ -172,6 +199,10 @@ class Cinema
 
     }
 
+    /**
+     * @param array $room
+     * @return string
+     */
     public function formatSeatMap(array $room)
     {
 
@@ -206,6 +237,11 @@ class Cinema
         return $string;
     }
 
+    /**
+     * @param $seatnumber
+     * @param $id
+     * @param $filename
+     */
     public function removeReservation($seatnumber, $id, $filename): void
     {
         $newReservation = new Seat();
@@ -213,6 +249,4 @@ class Cinema
         $this->presentations[$id]['room']['seats'][$seatnumber] = $newReservation;
         $this->save($filename);
     }
-
-
 }

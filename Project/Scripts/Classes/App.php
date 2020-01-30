@@ -21,11 +21,16 @@ class App
     ];
 
 
+    /**
+     * @param $output
+     * @return string
+     */
     private function rl($output): string
     {
         print $output;
         return readline();
     }
+
 
     public function run(): void
     {
