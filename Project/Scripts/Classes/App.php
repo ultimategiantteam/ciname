@@ -69,25 +69,30 @@ class App
 
                     $data = $cinema->toArray();
 
-                    $cinema->addPresentation($movieID,$data,$roomname,$time);
+                    $cinema->addPresentation($movieID, $data, $roomname, $time);
                     $cinema->save($filename);
                     break;
                 case 4:
                     $name = $this->rl('Vorname+Nachname: ');
-
                     print $cinema->formatPresentations();
                     $id = $this->rl('Vorstellung: ');
                     $data = $cinema->toArray();
                     $movieName = $data['presentations'][$id]['movie']['name'];
                     $time = $data['presentations'][$id]['time'];
                     $roomName = $data['presentations'][$id]['room']['name'];
+                    print $cinema->formatSeatMap($data['presentations'][$id]['room']);
+                    $rows = $data['presentations'][$id]['room']['rows'];
                     $seatnumber = $this->rl('Number of Seats: ');
                     $seats = [];
-                    for($i = 0; $i < $seatnumber; $i++){
-                        $seats[] = $this->rl("Seats number $i:");
+                    for ($i = 0; $i < $seatnumber; $i++) {
+                        $numberx = intval($this->rl("Seat numberX $i:"));
+                        $numbery = intval($this->rl("Seat numberY $i:"));
+                        $seatnum = (($rows * $numbery) + $numberx);
+                        $seats[] = $seatnum;
                     }
-                    $cinema->addReservation($name,$roomName,$seats,$movieName,$time);
+                    $cinema->addReservation($name, $roomName, $seats, $movieName, $time);
                     $cinema->save($filename);
+                    print $cinema->formatSeatMap($data['presentations'][$id]['room']);
                     break;
             }
         } while ($choice != 0);

@@ -157,5 +157,37 @@ class Cinema
 
     }
 
+    public function formatSeatMap(array $room)
+    {
 
+
+        $seatmap = $room['seats'];
+        foreach ($seatmap as $id => $seat) {
+            if ($seat['reserved'] == true) {
+                $icon = 'X';
+            } else {
+                $icon = 'O';
+            }
+            $newSeatMap[$id] = $icon;
+        }
+
+        $string = '  ';
+        for($s = 1; $s <= $room['cols'];$s++){
+            $string .= $s . ' ';
+        }
+        $string .= PHP_EOL;
+        $string .= 0 . ' ';
+        $id = 0;
+        for ($j = 1; $j <= $room['rows']; $j++) {
+
+            for ($i = 1; $i <= $room['cols']; $i++) {
+                $string .= $newSeatMap[$id] . ' ';
+                $id++;
+            }
+            $string .= PHP_EOL;
+            $string .= $j . ' ';
+        }
+
+        return $string;
+    }
 }
