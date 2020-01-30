@@ -7,7 +7,7 @@ class Show extends Item
 
     private $movie;
 
-    private $time;
+    private string $time;
 
     /**
      * @return mixed
@@ -35,6 +35,7 @@ class Show extends Item
         return $this->movie;
     }
 
+
     /**
      * @param mixed $movie
      * @return Show
@@ -48,7 +49,7 @@ class Show extends Item
     /**
      * @return mixed
      */
-    public function getTime()
+    public function getTime(): string
     {
         return $this->time;
     }
@@ -65,20 +66,32 @@ class Show extends Item
 
     public function toArray(): array
     {
-        return array_merge(parent::toArray(), ['room' => $this->getRoom(), 'movie' => $this->getMovie()]);
+        return array_merge(parent::toArray(), ['room' => $this->getRoom(), 'movie' => $this->getMovie(), 'time' => $this->getTime()]);
     }
 
     public static function createFromConsole(string $filename): Show
     {
         $instance = new static;
+        $data = Cinema::createFromFile($filename);
 
-        print $instance->toString(Cinema::createFromFile($filename)->getMovies());
-        $instance->movie = readline();
-        print $instance->toString(Cinema::createFromFile($filename)->getRooms());
-        $instance->room = readline();
-        $instance->time = $instance->setTime(readline());
+        print $instance->toString($data->getMovies()) . 'MovieID: ';
+        $instance->movie = $data->getMovies()[readline()]->getName();
+
+        print $instance->toString($data->getRooms()) . 'RoomID: ';
+        $instance->room = $data->getRooms()[readline()]->getName();
+
+        print 'Time: ';
+        $instance->time = readline();
         return $instance;
 
     }
 
+    public static function createFromArray(array $data):self
+    {
+        $instance = new static;
+        $instance->time = $data['time'];
+        $instance->room = $data['room'];
+        $instance->movie = $data['movie'];
+        return $instance;
+    }
 }

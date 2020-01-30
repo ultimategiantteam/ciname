@@ -44,7 +44,9 @@ class Cinema
         foreach ($data['movies'] as $movie) {
             $instance->addMovie(Movie::createFromArray($movie));
         }
-
+        foreach ($data['shows'] as $show) {
+            $instance->addShow(Show::createFromArray($show));
+        }
         return $instance;
     }
 
@@ -58,6 +60,10 @@ class Cinema
         return $this;
     }
 
+    /**
+     * @param \Show $show
+     * @return $this
+     */
     public function addShow(Show $show): self
     {
         $this->shows[] = $show;
@@ -89,6 +95,18 @@ class Cinema
         return $this->movies;
     }
 
+    /**
+     * @return \Show[]
+     */
+    public function getShows(): array
+    {
+        return $this->shows;
+    }
+
+    /**
+     * @param \Movie $movie
+     * @return $this
+     */
     public function addMovie(Movie $movie): self
     {
         $this->movies[] = $movie;
@@ -98,7 +116,7 @@ class Cinema
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $data = [
             'rooms' => [],
@@ -112,7 +130,9 @@ class Cinema
         foreach ($this->getMovies() as $movie) {
             $data['movies'][] = $movie->toArray();
         }
-
+        foreach ($this->getShows() as $show) {
+            $data['shows'][] = $show->toArray();
+        }
         return $data;
     }
 
@@ -133,5 +153,6 @@ class Cinema
         file_put_contents($filename, $this->toJson());
         return $this;
     }
+
 
 }
