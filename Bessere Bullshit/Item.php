@@ -36,6 +36,12 @@ abstract class Item implements Persistable
         return json_encode($this->toArray());
     }
 
-
-
+    public function toString(array $data): string
+    {
+        $string = '';
+        foreach ($data as $id => $item){
+            $string .= $id . "\t". $item->getName() . PHP_EOL;
+        }
+        return $string;
+    }
 }

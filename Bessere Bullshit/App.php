@@ -1,7 +1,8 @@
 <?php
 require_once 'Cinema.php';
 require_once 'Room.php';
-
+require_once 'Movie.php';
+require_once 'Show.php';
 function getInput($request): string
 {
     print $request;
@@ -15,9 +16,10 @@ class App
     {
         $filename = './cinema.json';
         $cinema = Cinema::createFromFile($filename);
-
         $cinema->addRoom(Room::createFromConsole());
-        $cinema->addRoom(Room::createFromConsole());
+        $cinema->addMovie(Movie::createFromConsole());
+        $cinema->persist($filename);
+        $cinema->addShow(Show::createFromConsole($filename));
 
         foreach ($cinema->getRooms() as $room) {
             printf('%s [%s]' . PHP_EOL, $room->getName(), $room->getId());

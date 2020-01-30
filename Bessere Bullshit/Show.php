@@ -68,22 +68,15 @@ class Show extends Item
         return array_merge(parent::toArray(), ['room' => $this->getRoom(), 'movie' => $this->getMovie()]);
     }
 
-    public static function createFromConsole(): Show
+    public static function createFromConsole(string $filename): Show
     {
         $instance = new static;
-        $movies = (new Cinema())->getMovies();
-        foreach ($movies as $id => $movie){
-            print "$id $movie";
-        }
-        $instance->movie = $instance->setMovie(readline());
 
-        $instance->room = $instance->setRoom(readline());
+        print $instance->toString(Cinema::createFromFile($filename)->getMovies());
+        $instance->movie = readline();
+        print $instance->toString(Cinema::createFromFile($filename)->getRooms());
+        $instance->room = readline();
         $instance->time = $instance->setTime(readline());
-
-
-
-
-
         return $instance;
 
     }
