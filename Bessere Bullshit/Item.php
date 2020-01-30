@@ -1,5 +1,5 @@
 <?php
-
+require_once 'Persistable.php';
 
 abstract class Item implements Persistable
 {
