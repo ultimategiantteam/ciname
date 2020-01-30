@@ -14,7 +14,10 @@ class App
         ' Add Room',
         ' Add Movie',
         ' Add Presentation',
-        ' Add Reservation'
+        ' Add Reservation',
+        ' Remove Movie',
+        ' Remove Room',
+        ' Remove Reservation'
     ];
 
 
@@ -92,8 +95,30 @@ class App
                     }
                     $cinema->addReservation($name, $roomName, $seats, $movieName, $time);
                     $cinema->save($filename);
-                    print $cinema->formatSeatMap($data['presentations'][$id]['room']);
                     break;
+                case 5:
+                    print $cinema->formatMovies();
+                    $movieID = $this->rl('MovieID: ');
+                    $cinema->removeMovie($movieID, $filename);
+
+
+                    break;
+                case 6:
+                    print $cinema->formatRooms();
+                    $cinema->removeRoom($this->rl('Roomname: '));
+                    break;
+                case 7:
+                    print $cinema->formatPresentations();
+                    $pres = $this->rl('PresentationID: ');
+                    print $cinema->formatSeatMap($cinema->toArray()['presentations'][$pres]['room']);
+                    $numberx = intval($this->rl('Seat NumberX'))-1;
+                    $numbery = intval($this->rl('Seat NumberY'));
+                    $data = $cinema->toArray();
+                    $rows = $data['presentations'][$pres]['room']['rows'];
+                    $seatnum = (($rows * $numbery) + $numberx);
+                    $cinema->removeReservation($seatnum, $pres, $filename);
+                    break;
+
             }
         } while ($choice != 0);
 

@@ -62,6 +62,14 @@ class Cinema
         $this->movies[sizeof($this->movies) + 1] = $movie->toArray();
     }
 
+    public function removeMovie(int $id, string $filename): void
+    {
+        unset($this->movies[$id + 1]);
+        $this->save($filename);
+
+
+    }
+
     public function toArray(): array
     {
         $i = 0;
@@ -125,7 +133,7 @@ class Cinema
     public function formatMovies()
     {
         $string = '';
-        $id = 0;
+        $id = 1;
         $data = $this->toArray();
         foreach ($data['movies'] as $movie) {
             $string .= $id;
@@ -135,6 +143,13 @@ class Cinema
         return $string;
     }
 
+    /**
+     * @param string $name
+     * @param string $roomName
+     * @param array $seats
+     * @param string $moviename
+     * @param string $time
+     */
     public function addReservation(string $name, string $roomName, array $seats, string $moviename, string $time): void
     {
         $reservation = Reservation::createReservation($name, $seats, $moviename, $time, $roomName);
@@ -172,7 +187,7 @@ class Cinema
         }
 
         $string = '  ';
-        for($s = 1; $s <= $room['cols'];$s++){
+        for ($s = 1; $s <= $room['cols']; $s++) {
             $string .= $s . ' ';
         }
         $string .= PHP_EOL;
@@ -190,4 +205,14 @@ class Cinema
 
         return $string;
     }
+
+    public function removeReservation($seatnumber, $id, $filename): void
+    {
+        $newReservation = new Seat();
+        $newReservation = $newReservation->toArray($seatnumber);
+        $this->presentations[$id]['room']['seats'][$seatnumber] = $newReservation;
+        $this->save($filename);
+    }
+
+
 }
