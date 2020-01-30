@@ -2,6 +2,13 @@
 require_once 'Cinema.php';
 require_once 'Room.php';
 
+function getInput($request): string
+{
+    print $request;
+    return readline();
+}
+
+
 class App
 {
     public function run()
