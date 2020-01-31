@@ -3,9 +3,9 @@
 
 class Show extends Item
 {
-    private $room;
+    private string $roomID;
 
-    private $movie;
+    private string $movie;
 
     private string $time;
 
@@ -14,7 +14,7 @@ class Show extends Item
      */
     public function getRoom()
     {
-        return $this->room;
+        return $this->roomID;
     }
 
     /**
@@ -23,7 +23,7 @@ class Show extends Item
      */
     public function setRoom(Room $room)
     {
-        $this->room = $room;
+        $this->roomID = $room;
         return $this;
     }
 
@@ -58,7 +58,7 @@ class Show extends Item
      * @param mixed $time
      * @return Show
      */
-    public function setTime($time)
+    public function setTime(string $time)
     {
         $this->time = $time;
         return $this;
@@ -66,7 +66,7 @@ class Show extends Item
 
     public function toArray(): array
     {
-        return array_merge(parent::toArray(), ['room' => $this->getRoom(), 'movie' => $this->getMovie(), 'time' => $this->getTime()]);
+        return array_merge(parent::toArray(), ['roomID' => $this->roomID, 'movie' => $this->getMovie(), 'time' => $this->getTime()]);
     }
 
     public static function createFromConsole(string $filename): Show
@@ -78,7 +78,7 @@ class Show extends Item
         $instance->movie = $data->getMovies()[readline()]->getName();
 
         print $instance->toString($data->getRooms()) . 'RoomID: ';
-        $instance->room = $data->getRooms()[readline()]->getName();
+        $instance->roomID = $data->getRooms()[readline()]->getId();
 
         print 'Time: ';
         $instance->time = readline();
@@ -86,12 +86,20 @@ class Show extends Item
 
     }
 
-    public static function createFromArray(array $data):self
+    public static function createFromArray(array $data): self
     {
         $instance = new static;
         $instance->time = $data['time'];
-        $instance->room = $data['room'];
+        $instance->roomID = $data['roomID'];
         $instance->movie = $data['movie'];
         return $instance;
     }
+
+    public function addReservation(Reservation $reservation): self
+    {
+
+
+
+    }
+
 }

@@ -25,12 +25,14 @@ class Room extends Item
 
     public static function createFromConsole(): self
     {
+        print 'Creating a new Room' . PHP_EOL;
+
         $instance = new static;
-        print 'Name: ';
+        print "\tName: ";
         $instance->setName(readline());
-        print 'Columns: ';
+        print "\tColumns: ";
         $instance->setCols(readline());
-        print 'Rows: ';
+        print "\tRows: ";
         $instance->setRows(readline());
         return $instance;
     }

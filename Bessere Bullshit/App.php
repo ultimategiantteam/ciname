@@ -17,10 +17,10 @@ class App
         $filename = './cinema.json';
 
         $cinema = Cinema::createFromFile($filename);
-        $cinema->addRoom(Room::createFromConsole());
+        //$cinema->addRoom(Room::createFromConsole());
         $cinema->addMovie(Movie::createFromConsole());
         $cinema->persist($filename);
-        $cinema->addShow(Show::createFromConsole($filename));
+        //$cinema->addShow(Show::createFromConsole($filename));
         foreach ($cinema->getRooms() as $room) {
             printf('%s [%s]' . PHP_EOL, $room->getName(), $room->getId());
         }

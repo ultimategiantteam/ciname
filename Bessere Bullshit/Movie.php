@@ -22,7 +22,8 @@ class Movie extends Item
     public static function createFromConsole(): self
     {
         $instance = new static;
-        print 'Name: ';
+        print 'Creating a new Movie' . PHP_EOL;
+        print "\tName: ";
         $instance->setName(readline());
         return $instance;
     }
