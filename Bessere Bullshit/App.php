@@ -3,32 +3,69 @@ require_once 'Cinema.php';
 require_once 'Room.php';
 require_once 'Movie.php';
 require_once 'Show.php';
+require_once 'Reservation.php';
 function getInput($request): string
 {
     print $request;
     return readline();
+
 }
 
 
 class App
 {
+    private $menu = [
+        '#################',
+        'Add room',
+        'Add Movie',
+        'Add Show',
+        'Add Reservation'
+    ];
     public function run()
     {
+        $menustr = 'Menu' . PHP_EOL;
+        foreach ($this->menu as $id => $menu) {
+            if($id != 0){
+                $menustr .= "<" . ($id-1) . ">";
+            }
+
+
+            $menustr .= $menu . PHP_EOL;
+
+        }
+
+
+
+
         $filename = './cinema.json';
 
         $cinema = Cinema::createFromFile($filename);
-        //$cinema->addRoom(Room::createFromConsole());
-        $cinema->addMovie(Movie::createFromConsole());
-        $cinema->persist($filename);
-        //$cinema->addShow(Show::createFromConsole($filename));
-        foreach ($cinema->getRooms() as $room) {
-            printf('%s [%s]' . PHP_EOL, $room->getName(), $room->getId());
-        }
-        foreach ($cinema->getShows() as $show) {
-            printf('%s %s %s [%s]' . PHP_EOL, $show->getMovie(), $show->getRoom(), $show->getTime(), $show->getId());
-        }
-        $cinema->getRoom(0)->getName();
-        $cinema->persist($filename);
+        do {
+            print $menustr;
+            $choice = readline();
+            switch ($choice) {
+                case 0:
+                    $cinema->addRoom(Room::createFromConsole());
+                    break;
+                case 1:
+                    $cinema->addMovie(Movie::createFromConsole());
+                    break;
+                case 2:
+                    $cinema->addShow(Show::createFromConsole($filename));
+                    break;
+                case 3:
+                    foreach ($cinema->getShows() as $id => $show) {
+                        printf('<%s> %s %s' . PHP_EOL, $id, $show->getMovie(), $show->getTime());
+                    }
+                    $show = $cinema->getShows()[readline()];
+                    $show->addReservation(Reservation::createFromConsole());
+                    foreach ($show->getReservations() as $id => $reservation) {
+                        printf('<%s> %s %s' . PHP_EOL, $id, $reservation['name'], $reservation['id']);
+                    }
+                    break;
+            }
+            $cinema->persist($filename);
+        } while ($choice != 'x');
     }
 }
 

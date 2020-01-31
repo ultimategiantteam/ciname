@@ -9,6 +9,8 @@ class Show extends Item
 
     private string $time;
 
+    private array $reservations;
+
     /**
      * @return mixed
      */
@@ -46,6 +48,8 @@ class Show extends Item
         return $this;
     }
 
+
+
     /**
      * @return mixed
      */
@@ -66,7 +70,12 @@ class Show extends Item
 
     public function toArray(): array
     {
-        return array_merge(parent::toArray(), ['roomID' => $this->roomID, 'movie' => $this->getMovie(), 'time' => $this->getTime()]);
+        return array_merge(parent::toArray(), [
+            'roomID' => $this->roomID,
+            'movie' => $this->getMovie(),
+            'time' => $this->getTime(),
+            'reservations' => $this->getReservations()
+        ]);
     }
 
     public static function createFromConsole(string $filename): Show
@@ -82,8 +91,18 @@ class Show extends Item
 
         print 'Time: ';
         $instance->time = readline();
+
+        $instance->reservations = [];
         return $instance;
 
+    }
+
+    /**
+     * @return array
+     */
+    public function getReservations(): array
+    {
+        return $this->reservations;
     }
 
     public static function createFromArray(array $data): self
@@ -92,14 +111,18 @@ class Show extends Item
         $instance->time = $data['time'];
         $instance->roomID = $data['roomID'];
         $instance->movie = $data['movie'];
+        $instance->reservations = $data['reservations'];
         return $instance;
     }
 
     public function addReservation(Reservation $reservation): self
     {
-
-
-
+        print "\tEnter place";
+        $seatNum = readline();
+        $this->reservations[$seatNum] = $reservation->toArray();
+        return $this;
     }
+
+
 
 }
