@@ -131,8 +131,8 @@ class Cinema
             $data['movies'][] = $movie->toArray();
         }
         foreach ($this->getShows() as $show) {
-            foreach ($show->getReservations() as $reservation){
-                $show->addReservation(Reservation::createFromArray($reservation));
+            foreach ($show->getReservations() as $id => $reservation){
+                $show->addReservation(Reservation::createFromArray($reservation),$id);
             }
             $data['shows'][] = $show->toArray();
         }

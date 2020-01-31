@@ -115,12 +115,10 @@ class Show extends Item
         return $instance;
     }
 
-    public function addReservation(Reservation $reservation): self
+    public function addReservation(Reservation $reservation, $seatNum): void
     {
-        print "\tEnter place";
-        $seatNum = readline();
         $this->reservations[$seatNum] = $reservation->toArray();
-        return $this;
+        ksort($this->reservations);
     }
 
 
