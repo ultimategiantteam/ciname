@@ -1,4 +1,5 @@
 <?php
+require_once 'Item.php';
 
 /**
  * Class Cinema
@@ -57,6 +58,24 @@ class Cinema
     public function addRoom(Room $room): self
     {
         $this->rooms[] = $room;
+        return $this;
+    }
+
+    public function removeRoom(int $id): self
+    {
+        unset($this->rooms[$id]);
+        return $this;
+    }
+
+    public function removeMovie(int $id): self
+    {
+        unset($this->movies[$id]);
+        return $this;
+    }
+
+    public function removeShow(int $id): self
+    {
+        unset($this->shows[$id]);
         return $this;
     }
 
@@ -131,8 +150,8 @@ class Cinema
             $data['movies'][] = $movie->toArray();
         }
         foreach ($this->getShows() as $show) {
-            foreach ($show->getReservations() as $id => $reservation){
-                $show->addReservation(Reservation::createFromArray($reservation),$id);
+            foreach ($show->getReservations() as $id => $reservation) {
+                $show->addReservation(Reservation::createFromArray($reservation), $id);
             }
             $data['shows'][] = $show->toArray();
         }

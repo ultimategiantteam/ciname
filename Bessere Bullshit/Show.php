@@ -5,7 +5,7 @@ class Show extends Item
 {
     private string $roomID;
 
-    private string $movie;
+    private string $movieID;
 
     private string $time;
 
@@ -34,7 +34,7 @@ class Show extends Item
      */
     public function getMovie()
     {
-        return $this->movie;
+        return $this->movieID;
     }
 
 
@@ -47,7 +47,6 @@ class Show extends Item
         $this->movie = $movie;
         return $this;
     }
-
 
 
     /**
@@ -72,7 +71,7 @@ class Show extends Item
     {
         return array_merge(parent::toArray(), [
             'roomID' => $this->roomID,
-            'movie' => $this->getMovie(),
+            'movieID' => $this->getMovie(),
             'time' => $this->getTime(),
             'reservations' => $this->getReservations()
         ]);
@@ -84,7 +83,7 @@ class Show extends Item
         $data = Cinema::createFromFile($filename);
 
         print $instance->toString($data->getMovies()) . 'MovieID: ';
-        $instance->movie = $data->getMovies()[readline()]->getName();
+        $instance->movieID = $data->getMovies()[readline()]->getId();
 
         print $instance->toString($data->getRooms()) . 'RoomID: ';
         $instance->roomID = $data->getRooms()[readline()]->getId();
@@ -110,17 +109,47 @@ class Show extends Item
         $instance = new static;
         $instance->time = $data['time'];
         $instance->roomID = $data['roomID'];
-        $instance->movie = $data['movie'];
+        $instance->movieID = $data['movieID'];
         $instance->reservations = $data['reservations'];
         return $instance;
     }
 
-    public function addReservation(Reservation $reservation, $seatNum): void
+    public function addReservation(Reservation $reservation, int $seatNum): void
     {
         $this->reservations[$seatNum] = $reservation->toArray();
         ksort($this->reservations);
     }
 
+    public function getSeatmap($filename): string
+    {
+        $seatMap = PHP_EOL;
+        foreach (Cinema::createFromFile($filename)->getRooms() as $room) {
+            if ($room->getId() == $this->roomID) {
+                $columns = $room->getCols();
+                $rows = $room->getRows();
+                break;
+            }
+        }
+        $r = 0;
+        $k = 0;
+        for ($i = 0; $i < ($columns) * ($rows); $i++) {
+            if (array_key_exists($i + 1, $this->reservations)) {
+                $seatMap .= 'X ';
+            } else {
+                $seatMap .= '0 ';
+            }
+            if (strlen($seatMap) % ((($columns+1) * 2)) == false) {
+                $seatMap .= PHP_EOL;
+            }
+        }
 
 
+        return $seatMap;
+    }
+
+
+    public function removeReservation(int $id): void
+    {
+        unset($this->reservations[$id]);
+    }
 }

@@ -39,8 +39,8 @@ abstract class Item implements Persistable
     public function toString(array $data): string
     {
         $string = '';
-        foreach ($data as $id => $item){
-            $string .= $id . "\t". $item->getName() . PHP_EOL;
+        foreach ($data as $id => $item) {
+            $string .= $id . "\t" . $item->getName() . PHP_EOL;
         }
         return $string;
     }
