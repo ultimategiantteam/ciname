@@ -24,7 +24,10 @@ class Reservation extends Entity
         $instance->name = $name;
 
         foreach (Cinema::$shows as $id => $show) {
-            printf("%d\t Room: %s\n\t Movie: %s\n\t Time: %s\n\n", $id, $show->getRoom()->getName(), $show->getMovie()->getName(), $show->getTime());
+            printf("%d\t Room: %s\n\t Movie: %s\n\t Time: %s\n\n",
+                $id, $show->getRoom()->getName(),
+                $show->getMovie()->getName(),
+                $show->getTime());
         }
 
         //Show auswählen
@@ -35,16 +38,7 @@ class Reservation extends Entity
         $instance->show = Cinema::$shows->offsetGet($input);
         $show = Cinema::$shows[$input];
 
-        $rows = $show->getRoom()->getRows();
-        $columns = $show->getRoom()->getColumns();
-
-        for ($i = 0; $i < $rows; $i++) {
-            for ($j = 0; $j < $columns; $j++) {
-                $seat = $i * $columns + $j;
-                if ($show->isSeatFree($seat) == true) print "O"; else print "X";
-            }
-            print PHP_EOL;
-        }
+        $show->printFreeSeats();
 
         print PHP_EOL . "How many seats: ";
         do {
@@ -59,8 +53,8 @@ class Reservation extends Entity
                 print PHP_EOL . "Which column: ";
                 $column = trim(readline());
 
-                $seat = $row * $columns + $column;
-                if ($show->isSeatFree($seat) == true && $row <= $rows && $column <= $columns) {
+                $seat = $row * $show->getColumns() + $column;
+                if ($show->isSeatFree($seat) == true && $row <= $show->getRows() && $column <= $show->getColumns()) {
                     $instance->seats[] = $seat;
                     $isFree = true;
                 } else {

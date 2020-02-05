@@ -45,9 +45,9 @@ class App
             '(3) Add presentation',
             '(4) Add reservation',
             '(5) Show movies',
-            '(7) Show rooms',
-            '(8) Show shows',
-            '(9) Show reservations',
+            '(6) Show rooms',
+            '(7) Show shows',
+            '(8) Show reservations',
             '(x) Exit',
             $scores,
         ];
@@ -62,7 +62,7 @@ class App
                 print $points . PHP_EOL;
             }
 
-            $input = readlineWithPattern("choose", "[1-9x]{1}", "Invalid answer");
+            $input = readlineWithPattern("choose", "[1-8x]{1}", "Invalid answer");
 
             switch ($input) {
                 case 1:
@@ -84,7 +84,7 @@ class App
                 case 3:
                     print "Create show" . PHP_EOL . $scores . PHP_EOL;
                     Cinema::$shows->append(Show::createFromConsole(
-                        readlineWithPattern("Which time","[0-9]:[0-5][0-9]", "Format: (00:00)")));
+                        readlineWithPattern("Which time", "[0-9]:[0-5][0-9]", "Format: (00:00)")));
                     Cinema::$shows->persist($shows);
                     break;
                 case 4:
@@ -94,14 +94,28 @@ class App
                     Cinema::$reservations->persist($reservations);
                     break;
                 case 5:
+                    print "Show movies" . PHP_EOL . $scores . PHP_EOL;
+                    foreach (Cinema::$movies as $movie) {
+                        print $movie->getName() . PHP_EOL;
+                    }
                     break;
                 case 6:
+                    print "Show rooms" . PHP_EOL . $scores . PHP_EOL;
+                    foreach (Cinema::$rooms as $room) {
+                        print $room->getName() . PHP_EOL;
+                    }
                     break;
                 case 7:
+                    print "Show shows" . PHP_EOL . $scores . PHP_EOL;
+                    foreach (Cinema::$shows as $id => $show) {
+                        printf("%d\tRoom: %s\n\tMovie: %s\n\tTime: %s hours\n\tFree seats: %d\n\n",$id,$show->getRoom()->getName(),$show->getMovie()->getName(),$show->getTime(),$show->getFreeSeats());
+                    }
                     break;
                 case 8:
-                    break;
-                case 9:
+                    print "Show reservations" . PHP_EOL . $scores . PHP_EOL;
+                    foreach (Cinema::$reservations as $reservation) {
+                        print $reservation->getName() . PHP_EOL;
+                    }
                     break;
             }
         } while ($input != 'x');

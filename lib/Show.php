@@ -85,10 +85,47 @@ class Show extends Entity
             //Hat alle besetzten Stühle dieser Show in einem Array
             $reservated = $reservation->getSeats();
             foreach ($reservated as $seat) {
-                if($seat == intval($seats))return false;
+                if ($seat == intval($seats)) return false;
             }
         }
         return true;
+    }
+    public function getRows():int
+    {
+        return $this->getRoom()->getRows();
+    }
+    public function getColumns():int
+    {
+        return $this->getRoom()->getColumns();
+    }
+
+    public function printFreeSeats(): void
+    {
+        $rows = $this->getRows();
+        $columns = $this->getColumns();
+
+        for ($i = 0; $i < $rows; $i++) {
+            for ($j = 1; $j < $columns; $j++) {
+                $seat = $i * $columns + $j;
+                if ($this->isSeatFree($seat) == true) print "O"; else print "X";
+            }
+            print PHP_EOL;
+        }
+    }
+
+    public function getFreeSeats():int
+    {
+        $rows = $this->getRows();
+        $columns = $this->getColumns();
+
+        $seats = 0;
+        for ($i = 0; $i < $rows; $i++) {
+            for ($j = 0; $j < $columns; $j++) {
+                $seat = $i * $columns + $j;
+                if ($this->isSeatFree($seat) == true) $seats++;
+            }
+        }
+        return $seats;
     }
 
     /**
