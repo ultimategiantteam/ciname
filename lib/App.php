@@ -26,16 +26,12 @@ function readlineWithPattern(string $question, string $pattern, string $ansIfFal
  * Class App
  * @package Cinema
  */
-class App extends Cinema
+class App
 {
-    public static $movies;
-    public static $shows;
-    public static $rooms;
-    public static $reservations;
-
 
     public function run()
     {
+
         $movies = __DIR__ . '/movies.json';
         $shows = __DIR__ . '/shows.json';
         $rooms = __DIR__ . '/rooms.json';
@@ -56,10 +52,10 @@ class App extends Cinema
             $scores,
         ];
 
-        static::$movies = Collection::load($movies, Movie::class);
-        static::$rooms = Collection::load($rooms, Room::class);
-        static::$shows = Collection::load($shows, Show::class);
-        static::$reservations = Collection::load($reservations, Reservation::class);
+        Cinema::$movies = Collection::load($movies, Movie::class);
+        Cinema::$rooms = Collection::load($rooms, Room::class);
+        Cinema::$shows = Collection::load($shows, Show::class);
+        Cinema::$reservations = Collection::load($reservations, Reservation::class);
 
         do {
             foreach ($menuPoints as $points) {
@@ -71,31 +67,31 @@ class App extends Cinema
             switch ($input) {
                 case 1:
                     print "create movie" . PHP_EOL . $scores . PHP_EOL;
-                    static::$movies->append(Movie::createFromConsole(
+                    Cinema::$movies->append(Movie::createFromConsole(
                         readlineWithPattern("Name", "([a-z ]*)(3d)?", "Maximum lenght = 29"),
                         readlineWithPattern("Time", "[0-9]:[0-5][0-9]", "Format: (00:00)"),
                         readlineWithPattern("Fsk", "[0-1][0-9]", "Fromat: (0-19)")));
-                    static::$movies->persist($this->moviesFile);
+                    Cinema::$movies->persist($movies);
                     break;
                 case 2:
                     print "create room" . PHP_EOL . $scores . PHP_EOL;
-                    static::$rooms->append(Room::createFromConsole(
+                    Cinema::$rooms->append(Room::createFromConsole(
                         readlineWithPattern("Room", "[a-z]*", "Format: as many letters as you want"),
                         readlineWithPattern("Columns", "[0-9]{1,2}", "Maximum = 99"),
                         readlineWithPattern("Rows", "[0-9]{1,2}", "Maximum = 99")));
-                    static::$rooms->persist($this->roomsFile);
+                    Cinema::$rooms->persist($rooms);
                     break;
                 case 3:
                     print "Create show" . PHP_EOL . $scores . PHP_EOL;
-                    static::$shows->append(Show::createFromConsole(
+                    Cinema::$shows->append(Show::createFromConsole(
                         readlineWithPattern("Which time","[0-9]:[0-5][0-9]", "Format: (00:00)")));
-                    static::$shows->persist($this->showsFile);
+                    Cinema::$shows->persist($shows);
                     break;
                 case 4:
                     print "Create reservation" . PHP_EOL . $scores . PHP_EOL;
-                    static::$reservations->append(Reservation::createFromConsole(
+                    Cinema::$reservations->append(Reservation::createFromConsole(
                         readlineWithPattern("Name", "[a-z ]*", "Maximum lenght = 29")));
-                    static::$reservations->persist($this->reservationsFile);
+                    Cinema::$reservations->persist($reservations);
                     break;
                 case 5:
                     break;
@@ -112,11 +108,11 @@ class App extends Cinema
         die("Program is dead");
 
         /*  //Show all movies
-          foreach (static::$movies as $movie) {
+          foreach (Cinema::$movies as $movie) {
              printf('%s [%s]' . PHP_EOL, $movie->getName(), $movie->getId());
           }
           //Show all rooms
-          foreach (static::$rooms as $room) {
+          foreach (Cinema::$rooms as $room) {
               printf('%s [%s]' . PHP_EOL, $room->getName(), $room->getId());
           }*/
 

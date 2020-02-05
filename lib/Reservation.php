@@ -13,7 +13,7 @@ class Reservation extends Entity
     public static function createFromArray(array $data)
     {
         $instance = parent::createFromArray($data);
-        $instance->show = App::$shows->find($data['show']);
+        $instance->show = Cinema::$shows->find($data['show']);
         foreach (['name', 'seats'] as $p) $instance->{$p} = $data[$p];
         return $instance;
     }
@@ -23,7 +23,7 @@ class Reservation extends Entity
         $instance = new static;
         $instance->name = $name;
 
-        foreach (App::$shows as $id => $show) {
+        foreach (Cinema::$shows as $id => $show) {
             printf("%d\t Room: %s\n\t Movie: %s\n\t Time: %s\n\n", $id, $show->getRoom()->getName(), $show->getMovie()->getName(), $show->getTime());
         }
 
@@ -31,13 +31,20 @@ class Reservation extends Entity
         do {
             print "Show #:";
             $input = readline();
-        } while (array_key_exists($input, App::$shows) == false);
-        $instance->show = App::$shows->offsetGet($input);
-        $show = App::$shows[$input];
+        } while (array_key_exists($input, Cinema::$shows) == false);
+        $instance->show = Cinema::$shows->offsetGet($input);
+        $show = Cinema::$shows[$input];
 
         $rows = $show->getRoom()->getRows();
         $columns = $show->getRoom()->getColumns();
-        $instance->printSeats($input, $rows, $columns);
+
+        for ($i = 0; $i < $rows; $i++) {
+            for ($j = 0; $j < $columns; $j++) {
+                $seat = $i * $columns + $j;
+                if ($show->isSeatFree($seat) == true) print "O"; else print "X";
+            }
+            print PHP_EOL;
+        }
 
         print PHP_EOL . "How many seats: ";
         do {
@@ -90,17 +97,6 @@ class Reservation extends Entity
     public function getName(): string
     {
         return $this->name;
-    }
-
-    public function printSeats(Show $show,int $rows, int $columns): void
-    {
-        for ($i = 0; $i < $rows; $i++) {
-            for ($j = 0; $j < $columns; $j++) {
-                $seat = $i * $columns + $j;
-                if ($show->isSeatFree($seat) == true) print "O"; else print "X";
-            }
-            print PHP_EOL;
-        }
     }
 
 }

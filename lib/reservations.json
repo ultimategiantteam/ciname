@@ -34,5 +34,26 @@
       82,
       82
     ]
+  },
+  {
+    "id": "5e3a8b724dc7b",
+    "show": "5e3a8a9d3102a",
+    "name": "Cedric",
+    "seats": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "5e3a9334adfd4",
+    "show": "5e3a92ed4fc39",
+    "name": "Steiner",
+    "seats": [
+      11,
+      12,
+      13,
+      14,
+      15
+    ]
   }
 ]

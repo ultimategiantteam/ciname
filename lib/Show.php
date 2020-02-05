@@ -11,8 +11,8 @@ class Show extends Entity
     public static function createFromArray(array $data)
     {
         $instance = parent::createFromArray($data);
-        $instance->movie = App::$movies->find($data['movie']);
-        $instance->room = App::$rooms->find($data['room']);
+        $instance->movie = Cinema::$movies->find($data['movie']);
+        $instance->room = Cinema::$rooms->find($data['room']);
         $instance->time = $data['time'];
         return $instance;
     }
@@ -23,7 +23,7 @@ class Show extends Entity
         //Which Time
         $instance->time = $time;
         //Ausgabe aller Movies
-        foreach (App::$movies as $i => $movie) {
+        foreach (Cinema::$movies as $i => $movie) {
             printf('%d %s' . PHP_EOL, $i, $movie->getName());
         }
         print "==============================" . PHP_EOL;
@@ -31,11 +31,11 @@ class Show extends Entity
         do {
             print "Movie #:";
             $input = readline();
-        } while (array_key_exists($input, App::$movies) == false);
-        $instance->movie = App::$movies->offsetGet($input);;
+        } while (array_key_exists($input, Cinema::$movies) == false);
+        $instance->movie = Cinema::$movies->offsetGet($input);;
 
         //Ausgabe aller Rooms
-        foreach (App::$rooms as $i => $room) {
+        foreach (Cinema::$rooms as $i => $room) {
             printf('%d %s' . PHP_EOL, $i, $room->getName());
         }
         print "==============================" . PHP_EOL;
@@ -43,8 +43,8 @@ class Show extends Entity
         do {
             print "Room #:";
             $input = readline();
-        } while (array_key_exists($input, App::$rooms) == false);
-        $instance->room = App::$rooms->offsetGet($input);
+        } while (array_key_exists($input, Cinema::$rooms) == false);
+        $instance->room = Cinema::$rooms->offsetGet($input);
 
         return $instance;
     }
@@ -70,7 +70,7 @@ class Show extends Entity
     public function getReservation(): array
     {
         $reservations = [];
-        foreach (App::$reservations as $reservation) {
+        foreach (Cinema::$reservations as $reservation) {
             if ($reservation->getShow()->getId() == $this->getId()) $reservations[] = $reservation;
         }
         return $reservations;
