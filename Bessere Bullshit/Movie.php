@@ -35,7 +35,6 @@ class Movie extends Item
 
         return $instance;
     }
-
     /**
      * @return string
      */

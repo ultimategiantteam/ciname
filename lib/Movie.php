@@ -20,6 +20,7 @@ class Movie extends Entity
         return $instance;
     }
 
+
     public static function createFromConsole(string $name, string $time, int $fsk): self
     {
         $instance = new static;
@@ -61,4 +62,5 @@ class Movie extends Entity
             'fsk' => $this->fsk,
         ];
     }
+
 }

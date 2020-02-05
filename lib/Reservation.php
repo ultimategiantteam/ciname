@@ -24,31 +24,25 @@ class Reservation extends Entity
         $instance->name = $name;
 
         foreach (App::$shows as $id => $show) {
-            printf("%d\t Room: %s\n\t Movie: %s\n\t Time: %s\n\n", $id, $show->getRoom()->getName(), $show->getMovie()->getName(),$show->getTime());
+            printf("%d\t Room: %s\n\t Movie: %s\n\t Time: %s\n\n", $id, $show->getRoom()->getName(), $show->getMovie()->getName(), $show->getTime());
         }
 
+        //Show auswählen
         do {
             print "Show #:";
             $input = readline();
         } while (array_key_exists($input, App::$shows) == false);
         $instance->show = App::$shows->offsetGet($input);
-
         $show = App::$shows[$input];
+
         $rows = $show->getRoom()->getRows();
         $columns = $show->getRoom()->getColumns();
-
-        for ($i = 0; $i < $rows; $i++) {
-            for ($j = 0; $j < $columns; $j++) {
-                $seat = $i * $columns + $j;
-                if ($show->isSeatFree($seat) == true)print "O"; else print "X";
-            }
-            print PHP_EOL;
-        }
+        $instance->printSeats($input, $rows, $columns);
 
         print PHP_EOL . "How many seats: ";
         do {
             $seatsCount = trim(readline());
-        }while($seatsCount == 0 || is_numeric($seatsCount) == false);
+        } while ($seatsCount == 0 || is_numeric($seatsCount) == false);
 
         for ($i = 0; $i < $seatsCount; $i++) {
             do {
@@ -59,10 +53,10 @@ class Reservation extends Entity
                 $column = trim(readline());
 
                 $seat = $row * $columns + $column;
-                if ($show->isSeatFree($seat) == true && $row <= $rows && $column <= $columns){
+                if ($show->isSeatFree($seat) == true && $row <= $rows && $column <= $columns) {
                     $instance->seats[] = $seat;
                     $isFree = true;
-                }else{
+                } else {
                     print PHP_EOL . "Non existing or taken seat" . PHP_EOL;
                     $isFree = false;
                 }
@@ -96,6 +90,17 @@ class Reservation extends Entity
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function printSeats(Show $show,int $rows, int $columns): void
+    {
+        for ($i = 0; $i < $rows; $i++) {
+            for ($j = 0; $j < $columns; $j++) {
+                $seat = $i * $columns + $j;
+                if ($show->isSeatFree($seat) == true) print "O"; else print "X";
+            }
+            print PHP_EOL;
+        }
     }
 
 }

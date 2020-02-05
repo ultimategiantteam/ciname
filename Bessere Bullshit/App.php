@@ -4,7 +4,7 @@ require_once 'Room.php';
 require_once 'Movie.php';
 require_once 'Show.php';
 require_once 'Reservation.php';
-function lineread($request): string
+function lineread($request)
 {
     print $request;
     return readline();
@@ -24,7 +24,7 @@ class App
         'Remove Show        #',
         'Remove Reservation #'
     ];
-
+ 
     public function run()
     {
         $menustr = 'Menu' . PHP_EOL;

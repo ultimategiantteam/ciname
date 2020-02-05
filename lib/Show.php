@@ -98,4 +98,5 @@ class Show extends Entity
     {
         return $this->time;
     }
+
 }

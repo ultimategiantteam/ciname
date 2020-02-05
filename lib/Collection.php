@@ -3,7 +3,6 @@ namespace Cinema;
 
 use ArrayObject;
 
-
 /**
  * Class Collection
  * @package Cinema
