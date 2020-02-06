@@ -1,14 +1,1 @@
-[
-  {
-    "id": "5e3b6d8f3906c",
-    "name": "Stone wars",
-    "duration": "02:12",
-    "fsk": 19
-  },
-  {
-    "id": "5e3bbd92736b1",
-    "name": "Jurassic ZLI",
-    "duration": "01.59",
-    "fsk": 12
-  }
-]
+[{"id":"5e3be3b0b003c","name":"Birds of Prey","duration":"02.45","fsk":18},{"id":"5e3be50cc3de2","name":"Bad Boys for Life","duration":"02:30","fsk":16},{"id":"5e3be6110f54e","name":"1917","duration":"2.09","fsk":19},{"id":"5e3be72ae9da4","name":"bombshell","duration":"01:30","fsk":18}]

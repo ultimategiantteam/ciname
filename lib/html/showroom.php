@@ -1,6 +1,6 @@
 <?php
-require_once '../Classes/import.php';
-
+require_once './import.php';
+var_dump($_REQUEST);
 use Cinema\Cinema;
 
 $show = Cinema::$shows->find($_REQUEST['id']);

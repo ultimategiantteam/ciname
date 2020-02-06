@@ -55,17 +55,17 @@ class App
             return $input;
         }
 
-        function printTitle(string $title, string $scores):void
+        function printTitle(string $title, string $scores): void
         {
             print PHP_EOL . $title . PHP_EOL . $scores . PHP_EOL;
         }
 
-        function printObjectPoints(string $title, array $inObjectPoints):void
+        function printObjectPoints(string $title, array $inObjectPoints): void
         {
             foreach ($inObjectPoints as $id => $points) {
                 if ($id != 0 && $id != 5) {
                     print $points . " $title" . PHP_EOL;
-                }else{
+                } else {
                     print $points . PHP_EOL;
                 }
             }
@@ -80,6 +80,14 @@ class App
         Cinema::$rooms = Collection::load($rooms, Room::class);
         Cinema::$shows = Collection::load($shows, Show::class);
         Cinema::$reservations = Collection::load($reservations, Reservation::class);
+        $imgString = '';
+        $images = scandir('./save/Movies');
+        foreach ($images as $id => $image) {
+            if ($id > 1) {
+                $imgString .= $image . PHP_EOL;
+            }
+        }
+        print $imgString;
 
         do {
             foreach ($menuPoints as $points) {
@@ -106,11 +114,14 @@ class App
                                 break;
                             case 2:
                                 printTitle("Add movies", $scores);
-                                Cinema::$movies->append(Movie::createFromConsole(
+                                Cinema::$movies->append($movIe = Movie::createFromConsole(
                                     readlineWithPattern("Name", "([a-z ]*)(3d)?", "Maximum lenght = 29"),
                                     readlineWithPattern("Duration", "[0-9].[0-5][0-9]", "Format: (00.00)"),
                                     readlineWithPattern("Fsk", "[0-1][0-9]", "Fromat: (0-19)")));
                                 Cinema::$movies->persist($movies);
+                                print $imgString;
+                                $path = __DIR__ . '/save/Movies/' . readline();
+                                rename($path, __DIR__ . '/save/Saved Movies/' . $movIe->getId() . '.jpg');
                                 break;
                             case 3:
                                 printTitle("Edit movies", $scores);
@@ -216,5 +227,6 @@ class App
 
     }
 }
+
 $app = new App;
 $app->run();

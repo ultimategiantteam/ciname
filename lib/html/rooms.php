@@ -51,7 +51,7 @@
 <div class="container-fluid">
     <div class="row">
         <?php
-        require_once '../Classes/import.php';
+        require_once './import.php';
 
         use Cinema\Collection;
         use Cinema\Room;

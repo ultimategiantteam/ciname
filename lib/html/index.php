@@ -53,7 +53,7 @@
         <?php
 
 
-        require_once '../Classes/import.php';
+        require_once './import.php';
 
 
         use Cinema\Collection;
@@ -61,12 +61,11 @@
         $movies = Collection::load($movies, Movie::class);
         foreach ($movies as $movie) {
             ?>
-            <div class="col-3 py-2">
-                <div class="card" style="width: 13rem; height:10rem">
-                    <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+            <div class="col-3 py-2 d-flex justify-content-center">
+                <div class="card" style="width: 13rem;">
+                    <img class="card-img-top m-3" src="../save/Saved Movies/<?= $movie->getId() . '.jpg'?>" style="width: 11rem;" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title"><?= $movie->getName();?></h5>
-                        <a class="btn btn-primary disabled" href="#">BUCHEN</a>
                     </div>
                 </div>
             </div>

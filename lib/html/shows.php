@@ -1,5 +1,5 @@
 <?php
-require_once '../Classes/import.php';
+require_once './import.php';
 use Cinema\Cinema;
 ?>
 <!DOCTYPE html>
