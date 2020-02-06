@@ -1,0 +1,30 @@
+[
+  {
+    "id": "5e3b6db6ec29e",
+    "show": "5e3b6dab27685",
+    "name": "Nino Nufrio",
+    "seats": [
+      10,
+      11,
+      12
+    ]
+  },
+  {
+    "id": "5e3bbe2f10748",
+    "show": "5e3b6dab27685",
+    "name": "Sharu",
+    "seats": [
+      13
+    ]
+  },
+  {
+    "id": "5e3bbf91e6824",
+    "show": "5e3bbdd7d0422",
+    "name": "Vitus Lindi",
+    "seats": [
+      12,
+      13,
+      14
+    ]
+  }
+]
