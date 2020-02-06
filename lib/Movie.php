@@ -9,23 +9,47 @@ class Movie extends Entity
 {
     private $name;
 
-    private $time;
+    private $duration;
 
     private $fsk;
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param mixed $duration
+     */
+    public function setDuration($duration): void
+    {
+        $this->duration = $duration;
+    }
+
+    /**
+     * @param mixed $fsk
+     */
+    public function setFsk($fsk): void
+    {
+        $this->fsk = $fsk;
+    }
 
     public static function createFromArray(array $data)
     {
         $instance = parent::createFromArray($data);
-        foreach (['name', 'time', 'fsk'] as $p) $instance->{$p} = $data[$p];
+        foreach (['name', 'duration', 'fsk'] as $p) $instance->{$p} = $data[$p];
         return $instance;
     }
 
 
-    public static function createFromConsole(string $name, string $time, int $fsk): self
+    public static function createFromConsole(string $name, string $duration, int $fsk): self
     {
         $instance = new static;
         $instance->name = $name;
-        $instance->time = $time;
+        $instance->duration = $duration;
         $instance->fsk = $fsk;
         return $instance;
     }
@@ -41,9 +65,9 @@ class Movie extends Entity
     /**
      * @return mixed
      */
-    public function getTime()
+    public function getduration()
     {
-        return $this->time;
+        return $this->duration;
     }
 
     /**
@@ -57,10 +81,15 @@ class Movie extends Entity
     public function toArray(): array
     {
         return parent::toArray() + [
-            'name' => $this->name,
-            'time' => $this->time,
-            'fsk' => $this->fsk,
-        ];
+                'name' => $this->name,
+                'duration' => $this->duration,
+                'fsk' => $this->fsk,
+            ];
+    }
+
+    public function editMovie(): Movie
+    {
+
     }
 
 }

@@ -19,6 +19,9 @@ class Show extends Entity
 
     public static function createFromConsole(string $time)
     {
+        //scores
+        $scores = "==============================" .PHP_EOL;
+
         $instance = new static;
         //Which Time
         $instance->time = $time;
@@ -26,7 +29,7 @@ class Show extends Entity
         foreach (Cinema::$movies as $i => $movie) {
             printf('%d %s' . PHP_EOL, $i, $movie->getName());
         }
-        print "==============================" . PHP_EOL;
+        print $scores;
 
         do {
             print "Movie #:";
@@ -38,7 +41,7 @@ class Show extends Entity
         foreach (Cinema::$rooms as $i => $room) {
             printf('%d %s' . PHP_EOL, $i, $room->getName());
         }
-        print "==============================" . PHP_EOL;
+        print $scores;
 
         do {
             print "Room #:";
@@ -105,7 +108,7 @@ class Show extends Entity
         $columns = $this->getColumns();
 
         for ($i = 0; $i < $rows; $i++) {
-            for ($j = 1; $j < $columns; $j++) {
+            for ($j = 0; $j < $columns; $j++) {
                 $seat = $i * $columns + $j;
                 if ($this->isSeatFree($seat) == true) print "O"; else print "X";
             }
@@ -134,6 +137,30 @@ class Show extends Entity
     public function getTime(): string
     {
         return $this->time;
+    }
+
+    /**
+     * @param mixed $movie
+     */
+    public function setMovie($movie): void
+    {
+        $this->movie = $movie;
+    }
+
+    /**
+     * @param mixed $room
+     */
+    public function setRoom($room): void
+    {
+        $this->room = $room;
+    }
+
+    /**
+     * @param string $time
+     */
+    public function setTime(string $time): void
+    {
+        $this->time = $time;
     }
 
 }

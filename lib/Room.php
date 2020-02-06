@@ -56,4 +56,29 @@ class Room extends Entity
     {
         return $this->rows;
     }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param int $columns
+     */
+    public function setColumns(int $columns): void
+    {
+        $this->columns = $columns;
+    }
+
+    /**
+     * @param int $rows
+     */
+    public function setRows(int $rows): void
+    {
+        $this->rows = $rows;
+    }
+
 }

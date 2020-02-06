@@ -1,8 +1,5 @@
 <?php
-
-
 namespace Cinema;
-
 
 class Cinema
 {

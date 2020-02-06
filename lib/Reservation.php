@@ -93,4 +93,29 @@ class Reservation extends Entity
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param array $seats
+     */
+    public function setSeats(array $seats): void
+    {
+        $this->seats = $seats;
+    }
+
+    /**
+     * @param mixed $show
+     */
+    public function setShow($show): void
+    {
+        $this->show = $show;
+    }
+
+
 }
