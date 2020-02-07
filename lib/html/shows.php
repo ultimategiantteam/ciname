@@ -22,45 +22,56 @@ use Cinema\Cinema;
 </head>
 <body class="bg-dark">
 <header>
-    <div class="container-fluid bg-black text-center border border-secondary">
-        <div class="row">
-            <div class="col-1 p-0 text-secondary border-right border-secondary">
-                <img alt="..." class="img-fluid" src="./kitag.png"/>
-            </div>
-            <div class="col-3 p-0 pt-3 text-secondary border-right border-secondary">
-                <a class="py-3 px-5 bg-dark text-white text-decoration-none" href="index.php">
-                    Movies
-                </a>
-            </div>
-            <div class="col-3 p-0 py-3 text-secondary border-right border-secondary">
-                <a class="py-3 px-5 bg-dark text-white text-decoration-none" href="rooms.php">
-                    Rooms
-                </a>
-            </div>
-            <div class="col-3 p-0 pt-3 text-secondary border-right border-secondary">
-                <a class="py-3 px-5 bg-dark text-white text-decoration-none" href="shows.php">
-                    Shows
-                </a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 col-md-2">
+                    <a class="navbar-brand d-inline" href="index.php""><img class="img-fluid" src="kitag.png" alt=".."></a>
+                    <button class="navbar-toggler align-top" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+
+                <div class="collapse navbar-collapse ml-4" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item ">
+                            <a class="nav-link" href="index.php">Movies</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="shows.php">Shows <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container-fluid bg-success">
+    </nav>
+    <div class="container-fluid bg-success mb-2">
         <div class="py-3">
         </div>
     </div>
+
+
 </header>
 <div class="container-fluid">
     <div class="row">
         <?php foreach (Cinema::$shows as $show): ?>
-            <div class="col-3 py-2">
-                <div class="card" style="width: 13rem; height:10rem">
-                    <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-                    <div class="card-body">
-                        <h5 class="card-title"><?= $show->getMovie()->getName(); ?></h5>
-                        <h6 class="card-title"><?= $show->getRoom()->getName(); ?></h6>
-                        <h6 class="card-title"><?= $show->getTime(); ?></h6>
-                        <a class="btn btn-primary" href="showroom.php?id=<?= $show->getId();?>" >Buchen</a>
+            <div class="col-auto col-lg-3">
+                <div class="card mx-auto text-center mb-4" style="width:100%;">
+                    <img src="../save/Saved Movies/<?= $show->getMovie()->getId() . '.jpg' ?>" class="card-img-top" alt="...">
+                    <div class="card-body" style="height: 4rem">
+                        <p class="card-title d-block font-weight-bold"><?= $show->getMovie()->getName(); ?></p>
                     </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Fsk:<?= $show->getMovie()->getFsk(); ?></li>
+                    </ul>
+                    <div class="card-body">
+                        <h5 class="card-link">Room: <?= $show->getRoom()->getName()?></h5>
+                        <h5 class="card-link">Duration: <?= $show->getMovie()->getDuration();?></h5>
+                        <h5 class="card-link">Time: <?= $show->getTime();?></h5>
+                    </div>
+
                 </div>
             </div>
         <?php endforeach; ?>
